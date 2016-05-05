@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.2.4
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+before_script:
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+deploy:
+  provider: heroku
+  api_key:
+    secure: LYjVEYywZCX15clDVRkxAh4vBeiN4PWBAhYAWI1u6PCARhZ+G21+fQ3XNzVNJDzDasN93rOE/HAiJk0Gz+0MmapvE7m/0s1CX7LcvpCeTWO2x54LnQvUEDSRR6FtcnT5VCo8J9dbLR+h2WWB/4NulLfNCPLrnxNeVDd5lbNFDDZysM0tDIGHBNGrIH1cEz2YAoFqHoaMLl2GT/madUJ25p2rVq+j5oZi1bxjI5x9MPiL5AClctRFpyPiWTJqRmmhHj7N1lQF0kC2Uhj6WfdAfKNsr0pTlEVHoLayT1dOc7GTPQqOM4Tda+rse2DUA9WgLNjzL49hVPe3DXLSgsZUK395g50s2XzOAR3zpOr0gsA71oveI9qTQSH4B+Z6IDyQUV6ND8HQ0lZ+Qs2zG3rUe78xmQY85Ce7yvkGAOoqJKl/kMG7ILQg3nV/hu8gv1DfCmtL9Gk4VFgjui5npGfc6r5jai9UFl9gZv4I/+k97XhDzzheRu9dFeT05UPHfAFjuqAC0tQBaJqxBFZFbDwjpBD1WdiiGJladMiK9Tv7rWDMcg6hmuyZyZjOAg8W1Ks2JI4o3OAZngEOt75eRSjf+Vkfb/w7HXxzkxL7k2kzCFwphU3jSj3mxZ6wrWw4ByJkg3wC1PUrphXkr3QGEQbdVZMog37FPBvhMQ7b6kqBWu0=
+  app: wpoht2016
+  on:
+    repo: makeus/WPOHT2016
