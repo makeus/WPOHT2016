@@ -119,7 +119,7 @@ describe "CardMapper" do
         expect(Medium.count).to eq(0)
       end
 
-      it "should create new media from given data with proper url" do
+      it "should create new medium from given data with proper url" do
         CardMapper.new.mapCard id: 13057713, medias: [{id: 146272488}] 
         expect(Medium.count).to eq(1)
         media = Medium.first
@@ -127,10 +127,44 @@ describe "CardMapper" do
         expect(media.card.id).to eq(13057713)
       end
 
-      it "should create multiply new medium from given data with proper url" do
+      it "should create multiply new media from given data with proper url" do
         CardMapper.new.mapCard id: 13057713, medias: [{id: 146272488}, {id: 146272494}] 
         expect(Medium.count).to eq(2)
       end
+    end
+
+    describe "seller" do
+      it "should by default not create seller if none are given" do
+        CardMapper.new.mapCard id: 13057713
+        expect(Seller.count).to eq(0)
+      end
+
+      it "should by default create seller and ad seller id to card" do
+        CardMapper.new.mapCard id: 13057713, adExtra: {
+          contact_name: "Testi Testinen",
+          contact_person_picture_url: "www.testurl.com/A/B.jpg"
+        }
+        expect(Seller.count).to eq(1)
+        seller = Seller.first
+        expect(Card.first.seller_id).to eq(seller.id)
+        expect(seller.name).to eq("Testi Testinen")
+      end
+    end
+
+    describe "feature" do
+      it "should by defualt not create any features" do
+        CardMapper.new.mapCard id: 13057713
+        expect(Feature.count).to eq(0)
+      end
+
+      it "should create some features if exist " do
+        CardMapper.new.mapCard id: 13057713, ad: {price: 12000}
+        expect(Feature.count).to eq(1)
+        feature = Feature.first 
+        expect(feature.feature).to eq("price")
+        expect(feature.value).to eq("12000")
+      end
+
     end
   end
 end

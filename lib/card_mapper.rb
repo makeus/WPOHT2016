@@ -1,17 +1,24 @@
 class CardMapper
 
   def mapCard(cardData)
-    card = Card.find_or_create_by id: cardData[:id]
+    card = Card.find_or_initialize_by id: cardData[:id]
     if cardData[:coordinates]
       handleCoordinates card, cardData
     end
     if cardData[:street] && cardData[:address] && cardData[:city]
       handleLocations card, cardData
     end
-
     if cardData[:medias]
       handleMedia card, cardData
     end
+    if cardData[:adExtra]
+      handleSeller card, cardData
+    end
+    if cardData[:ad]
+      handleFeatures card, cardData
+    end
+
+    card.save
   end
 
   private
@@ -39,6 +46,31 @@ class CardMapper
     cardData[:medias].each{|media|
       url = "http://asunnot.oikotie-static.edgesuite.net/*/#{media[:id].to_s[0..2]}/#{media[:id].to_s[3..5]}/full/#{media[:id].to_s}.jpg"
       Medium.find_or_create_by card_id: card.id, url: url
+    }
+  end
+
+  def handleSeller(card, cardData)
+    seller = Seller.find_or_initialize_by name: cardData[:adExtra][:contact_name]
+    seller.image = cardData[:adExtra][:contact_person_picture_url] unless cardData[:adExtra][:contact_person_picture_url].blank?
+    seller.email = cardData[:adExtra][:contact_email] unless cardData[:adExtra][:contact_email].blank?
+    seller.company = cardData[:oikotieCompany][:MARKETING_NAME] unless (!cardData[:oikotieCompany] || cardData[:oikotieCompany][:contact_email].blank?)
+    if seller.save
+      card.seller_id = seller.id
+    end
+  end
+
+  def handleFeatures(card, cardData)
+    adFeatures = {
+      price: cardData[:ad][:price],
+      size: cardData[:ad][:size]
+    }
+
+    adFeatures.each{|type, value| 
+      if value.present?
+        feature = Feature.find_or_initialize_by card_id: card.id, feature: type
+        feature.value = value
+        feature.save
+      end
     }
   end
 end
