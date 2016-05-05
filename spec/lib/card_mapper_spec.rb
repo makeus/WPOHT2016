@@ -158,8 +158,8 @@ describe "CardMapper" do
       end
 
       it "should create some features if exist " do
-        CardMapper.new.mapCard id: 13057713, ad: {price: 12000}
-        expect(Feature.count).to eq(1)
+        CardMapper.new.mapCard id: 13057713, ad: {price: 12000}, adExtra: {description: "kuvaus"}
+        expect(Feature.count).to eq(2)
         feature = Feature.first 
         expect(feature.feature).to eq("price")
         expect(feature.value).to eq("12000")

@@ -14,7 +14,7 @@ class CardMapper
     if cardData[:adExtra]
       handleSeller card, cardData
     end
-    if cardData[:ad]
+    if cardData[:ad] && cardData[:adExtra]
       handleFeatures card, cardData
     end
 
@@ -62,7 +62,9 @@ class CardMapper
   def handleFeatures(card, cardData)
     adFeatures = {
       price: cardData[:ad][:price],
-      size: cardData[:ad][:size]
+      size: cardData[:ad][:size],
+      title: cardData[:ad][:title],
+      description: cardData[:adExtra][:description]
     }
 
     adFeatures.each{|type, value| 

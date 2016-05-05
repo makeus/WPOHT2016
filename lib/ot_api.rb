@@ -5,13 +5,13 @@ class OtApi
     parsePrice(params)
     parseLocation(params)
     response = HTTParty.get "#{url}?#{URI::encode_www_form(params)}"
-    response.parsed_response
+    response.parsed_response.with_indifferent_access
   end
 
   def getCard(id)
     url = "https://asunnot.oikotie.fi/myytavat-asunnot/#{id}?format=json"
     response = HTTParty.get url
-    response.parsed_response
+    response.parsed_response.with_indifferent_access
   end
 
   private

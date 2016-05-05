@@ -9,11 +9,10 @@ class CardsRetriever
 
   def createCardsFromRemote(params)
     cards = @api.getCards(params)
-    cards.each {|card|
-      @mapper.mapCard @api.getCard(card[:id])
-    }
-  end 
-
-  private 
-
+    if(cards) 
+      cards[:cards].each {|card|
+        @mapper.mapCard @api.getCard(card[:id])
+      }
+    end
+  end
 end
