@@ -22,6 +22,8 @@ end
 group :test do
   gem 'capybara'
   gem 'launchy'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
   gem 'simplecov', require: false
   gem 'webmock'
 end

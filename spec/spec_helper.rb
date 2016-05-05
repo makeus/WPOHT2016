@@ -1,5 +1,6 @@
 require 'webmock/rspec'
 require 'simplecov'
+require 'database_cleaner'
 
 SimpleCov.start do
   add_filter "/path/"
