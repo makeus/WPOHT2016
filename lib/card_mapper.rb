@@ -3,10 +3,14 @@ class CardMapper
   def mapCard(cardData)
     card = Card.find_or_create_by id: cardData[:id]
     if cardData[:coordinates]
-      handleCoordinates(card, cardData)
+      handleCoordinates card, cardData
     end
     if cardData[:street] && cardData[:address] && cardData[:city]
-      handleLocations(card, cardData)
+      handleLocations card, cardData
+    end
+
+    if cardData[:medias]
+      handleMedia card, cardData
     end
   end
 
@@ -29,5 +33,12 @@ class CardMapper
 
     location.address = address unless address.blank?
     location.save
+  end
+
+  def handleMedia(card, cardData)
+    cardData[:medias].each{|media|
+      url = "http://asunnot.oikotie-static.edgesuite.net/*/#{media[:id].to_s[0..2]}/#{media[:id].to_s[3..5]}/full/#{media[:id].to_s}.jpg"
+      Medium.find_or_create_by card_id: card.id, url: url
+    }
   end
 end

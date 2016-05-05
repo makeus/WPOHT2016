@@ -3,4 +3,5 @@ class Card < ActiveRecord::Base
   has_many :features
   has_many :coordinates
   has_many :locations
+  has_many :media
 end

@@ -30,6 +30,7 @@ describe "CardMapper" do
         coordinates = Coordinate.first
         expect(coordinates.latitude).to eq(60.248058842634)
         expect(coordinates.longitude).to eq(24.81496194372)
+        expect(coordinates.card.id).to eq(13057713)
       end
     end
 
@@ -60,6 +61,7 @@ describe "CardMapper" do
         expect(Location.count).to eq(1)
         location = Location.first
         expect(location.address).to eq("Muuttolinnunreitti 3 b, Espoo")
+        expect(location.card.id).to eq(13057713)
       end
 
       it "should create proper address even with some data missing" do
@@ -83,6 +85,7 @@ describe "CardMapper" do
         expect(Location.count).to eq(1)
         location = Location.first
         expect(location.address).to eq("Muuttolinnunreitti, Espoo")
+        expect(location.card.id).to eq(13057713)
       end
 
       it "should create proper address even with some data missing" do
@@ -107,6 +110,26 @@ describe "CardMapper" do
         expect(Location.count).to eq(1)
         location = Location.first
         expect(location.address).to eq("Muuttolinnunreitti 3 b")
+        expect(location.card.id).to eq(13057713)
+      end
+    end
+    describe "media" do
+      it "should by default not create media if none are given" do
+        CardMapper.new.mapCard id: 13057713
+        expect(Medium.count).to eq(0)
+      end
+
+      it "should create new media from given data with proper url" do
+        CardMapper.new.mapCard id: 13057713, medias: [{id: 146272488}] 
+        expect(Medium.count).to eq(1)
+        media = Medium.first
+        expect(media.url).to eq("http://asunnot.oikotie-static.edgesuite.net/*/146/272/full/146272488.jpg")
+        expect(media.card.id).to eq(13057713)
+      end
+
+      it "should create multiply new medium from given data with proper url" do
+        CardMapper.new.mapCard id: 13057713, medias: [{id: 146272488}, {id: 146272494}] 
+        expect(Medium.count).to eq(2)
       end
     end
   end
