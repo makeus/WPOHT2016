@@ -1,7 +1,7 @@
 class CardMapper
 
   def mapCard(cardData)
-    card = Card.find_or_initialize_by id: cardData[:id]
+    card = Card.find_or_initialize_by id: cardData[:card_id]
     if cardData[:coordinates]
       handleCoordinates card, cardData
     end
@@ -44,7 +44,7 @@ class CardMapper
 
   def handleMedia(card, cardData)
     cardData[:medias].each{|media|
-      url = "http://asunnot.oikotie-static.edgesuite.net/*/#{media[:id].to_s[0..2]}/#{media[:id].to_s[3..5]}/full/#{media[:id].to_s}.jpg"
+      url = "http://asunnot.oikotie-static.edgesuite.net/623*464/#{media[:media_id].to_s[0..2]}/#{media[:media_id].to_s[3..5]}/wide/#{media[:media_id].to_s}.jpg"
       Medium.find_or_create_by card_id: card.id, url: url
     }
   end
@@ -53,7 +53,8 @@ class CardMapper
     seller = Seller.find_or_initialize_by name: cardData[:adExtra][:contact_name]
     seller.image = cardData[:adExtra][:contact_person_picture_url] unless cardData[:adExtra][:contact_person_picture_url].blank?
     seller.email = cardData[:adExtra][:contact_email] unless cardData[:adExtra][:contact_email].blank?
-    seller.company = cardData[:oikotieCompany][:MARKETING_NAME] unless (!cardData[:oikotieCompany] || cardData[:oikotieCompany][:contact_email].blank?)
+    seller.company = cardData[:oikotieCompany][:MARKETING_NAME] unless (!cardData[:oikotieCompany] || cardData[:oikotieCompany][:MARKETING_NAME].blank?)
+    seller.logo = cardData[:logo1] unless cardData[:logo1].blank?
     if seller.save
       card.seller_id = seller.id
     end

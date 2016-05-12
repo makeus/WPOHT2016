@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root 'card#index'
+  root 'cards#index'
+  resources :cards, only:[:index, :show]
+  resources :contacts, only:[:create]
 end
