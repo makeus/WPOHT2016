@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
-gem 'sqlite3'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'sass-rails', '~> 5.0'
 gem "autoprefixer-rails"
@@ -17,16 +16,23 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+group :development do
+  gem 'sqlite3'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
+end
+
 group :development, :test do
   gem 'byebug'
   gem "better_errors"
   gem 'rspec-rails', '~> 3.0'
 end
 
-group :development do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-end
 
 group :test do
   gem 'capybara'
