@@ -13,6 +13,6 @@ class CardsController < ApplicationController
     props[:title] = @card.features.find_by(feature: "title").value
     props[:description] = @card.features.find_by(feature: "description").value
     props[:authenticityToken] = form_authenticity_token
-    render component: 'Card', props: props
+    render component: 'Card', props: props, prerender: true
   end
 end

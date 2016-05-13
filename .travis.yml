@@ -17,3 +17,4 @@ deploy:
   app: wpoht2016
   on:
     repo: makeus/WPOHT2016
+  run: "rake db:migrate"
