@@ -3,7 +3,18 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 	font-weight: lighter;
 }
 
+.title {
+	background-color: $blue;
+	color: white;
+	padding: $spacer;
 
+	h4 {
+		display: inline-block;
+		& + h4 {
+			margin-left: 2 * $spacer;
+		}
+	}
+}
 
 .carousel-inner {
 	.carousel-item { 
@@ -55,7 +66,7 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 		height: 50px;
 
 		&:before {
-			line-height: 0.5;
+			line-height: 0.3;
 			display: block;
 			height: 100%;
 		}
@@ -100,6 +111,7 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 	color: white;
 
 	.seller-images {
+		display: flex;
 		align-items: center;
 		.seller-image {
 			margin-left: $spacer;

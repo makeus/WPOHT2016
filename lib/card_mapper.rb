@@ -17,7 +17,7 @@ class CardMapper
     if cardData[:ad] && cardData[:adExtra]
       handleFeatures card, cardData
     end
-
+    
     card.save
   end
 

@@ -1,12 +1,12 @@
-$navbar-default-bg: white;
-$navbar-inverse-bg: $blue;
+$navbar-default-bg: $blue;
+$navbar-inverse-bg: white;
 $navbar-default-border: $blue;
 $navbar-default-link-color: $blue;
 $navbar-default-link-active-bg: $blue;
 $navbar-default-link-active-color: $blue;
 $navbar-default-link-hover-color: $blue;
-$navbar-default-color: $blue;
-$navbar-inverse-color: white;
+$navbar-default-color: white;
+$navbar-inverse-color: $blue;
 $navbar-inverse-link-color: white;
 $navbar-inverse-link-active-bg: white;
 $navbar-inverse-link-active-color: white;
@@ -32,6 +32,7 @@ $line-height-computed: 1;
     border-top-width: 0;
     border-bottom-width: 0;
     border-radius: 0;
+    padding-top: 0;
 
     .container, .container-fluid {
       width: auto;

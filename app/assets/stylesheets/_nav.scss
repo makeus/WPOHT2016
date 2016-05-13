@@ -1,0 +1,91 @@
+.navigation {
+	h1, h2, h3, h4, p, span, label, i {
+		color: $blue;
+	}
+
+	h2, h3 {
+		margin-top: $spacer;
+	}
+	.c-input {
+		padding-left: 2rem;
+		font-size: 1.5rem;
+		.c-indicator {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+
+	.price-input {
+		position: relative;
+		input {
+			padding-right: 1.5rem;
+		}
+
+		&:after {
+			content: '€';
+			position: absolute;
+			right: $spacer;
+			top: 0;
+			color: $blue;
+			font-size: 1.7rem;
+		}
+	}
+
+	.feature-score {
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid $blue;
+		border-radius: 0.25rem;
+		cursor: pointer;
+		transition: background-color 200ms ease-in;
+
+		i {
+			transition: color 200ms ease-in;
+			font-size: 5rem;
+		}
+
+		h4 {
+			transition: color 200ms ease-in;
+			margin-top: 0.5rem;
+		}
+
+		&:before {
+			content: "";
+			display: block;
+			padding-top: 100%;
+		}
+	}
+
+	.features-row {
+		margin-bottom: $spacer;
+
+		label {
+			display: block;
+		}
+
+		input {
+			display: none;
+		}
+
+		input:checked + .feature-score {
+			background-color: $blue;
+			i, h1, h2, h3, h4 {
+				color: white;
+			}
+		}
+	}
+}
+
+.navbar-title {
+	padding-left: 6rem;
+	position: relative;
+	i {
+		font-size: 6rem;
+		position: absolute;
+		transform: scale(-1, 1);
+		left: -0.5rem;
+		bottom: -1rem;
+	}
+}
