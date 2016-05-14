@@ -13,8 +13,9 @@ describe "CardMapper" do
       it "should not create a new one when previous exist" do
         card = FactoryGirl.create(:card)
         expect(Card.count).to eq(1)
-        CardMapper.new.mapCard card_id: card.id
+        card = CardMapper.new.mapCard card_id: card.id
         expect(Card.count).to eq(1)
+        expect(card).to eq(Card.first)
       end
     end
 

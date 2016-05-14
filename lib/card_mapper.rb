@@ -2,6 +2,9 @@ class CardMapper
 
   def mapCard(cardData)
     card = Card.find_or_initialize_by id: cardData[:card_id]
+    if card.modified_recently
+      return card
+    end
     if cardData[:coordinates]
       handleCoordinates card, cardData
     end
@@ -17,8 +20,9 @@ class CardMapper
     if cardData[:ad] && cardData[:adExtra]
       handleFeatures card, cardData
     end
-    
+
     card.save
+    card
   end
 
   private

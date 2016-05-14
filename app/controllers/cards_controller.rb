@@ -1,7 +1,15 @@
 class CardsController < ApplicationController
   def index
       retriever = CardsRetriever.new OtApi.new, CardMapper.new;
-      retriever.createCardsFromRemote({cardType: 100, limit: 24, offset: 0})
+      @cards = retriever.createCardsFromRemote({
+        :cardType => 100,
+        :limit => 24,
+        :offset => 0,
+        :price => {
+          :min => 1000000
+        }
+      }.merge(card_params))
+
   end
 
   def show
@@ -10,10 +18,10 @@ class CardsController < ApplicationController
     props[:images] = @card.media.map{|medium| medium.url }
     props[:coordinates] = @card.coordinates.first
     props[:seller] = @card.seller
-    props[:title] = get_feature_value "title"
-    props[:description] = get_feature_value "description"
-    props[:price] = helper.number_to_currency(get_feature_value("price"), unit: '€', delimiter: ' ', precision: 0, format: "%n %u") 
-    props[:size] = get_feature_value "size"
+    props[:title] = @card.get_feature_value "title"
+    props[:description] = @card.get_feature_value "description"
+    props[:price] = helper.number_to_currency(@card.get_feature_value("price"), unit: '€', delimiter: ' ', precision: 0, format: "%n %u") 
+    props[:size] = @card.get_feature_value "size"
     props[:location] = @card.locations.first
     props[:authenticityToken] = form_authenticity_token
     render component: 'Card', props: props, prerender: true
@@ -21,16 +29,13 @@ class CardsController < ApplicationController
 
   private
 
-  def get_feature_value(name)
-     feature = @card.features.find_by(feature: name)
-     if !feature.nil?
-        return feature.value
-     end
-  end
-
   def helper
     @helper ||= Class.new do
       include ActionView::Helpers::NumberHelper
     end.new
+  end
+
+  def card_params
+    params.permit(:limit, :offset, :cardType, :price => [:max, :min], :location => [], :features => [])
   end
 end

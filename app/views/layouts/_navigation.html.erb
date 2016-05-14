@@ -6,110 +6,110 @@
     </div>
   </div>
   <div class="navigation">
-    <h3>Country</h3>
-    <div class="row">
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          Finland
-        </label>
+    <form method="get" action="/cards">
+      <h3>Country</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="FI" type="checkbox">
+            <span class="c-indicator"></span>
+            Finland
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="SE" type="checkbox">
+            <span class="c-indicator"></span>
+            Sweden
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="NO" type="checkbox">
+            <span class="c-indicator"></span>
+            Norway
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="EE" type="checkbox">
+            <span class="c-indicator"></span>
+            Estonia
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="ES" type="checkbox">
+            <span class="c-indicator"></span>
+            Spain
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label class="c-input c-checkbox">
+            <input name="location[]" value="FR" type="checkbox">
+            <span class="c-indicator"></span>
+            France
+          </label>
+        </div>
       </div>
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          Sweden
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          Norway
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          Estonia
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          Spain
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label class="c-input c-checkbox">
-          <input type="checkbox">
-          <span class="c-indicator"></span>
-          France
-        </label>
-      </div>
-    </div>
 
-    <h3>Maximum price</h3>
-    <div class="price-input">
-      <input class="form-control" name="price" >
-    </div>
+      <h3>Maximum price</h3>
+      <div class="price-input">
+        <input name="price[max]" class="form-control" name="price" >
+      </div>
 
-    <h3>Features</h3>
+      <h3>Features</h3>
 
-    <div class="row features-row">
-      <div class="col-xs-6">
-        <label>
-          <input type="checkbox">
-          <div class="feature-score">
-            <div>
-              <i class="icon-sauna"></i>
-              <h4>Sauna</h4>
+      <div class="row features-row">
+        <div class="col-xs-6">
+          <label>
+            <input name="features[]" value="sauna" type="checkbox">
+            <div class="feature-score">
+              <div>
+                <i class="icon-sauna"></i>
+                <h4>Sauna</h4>
+              </div>
             </div>
-          </div>
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label>
-          <input type="checkbox">
-          <div class="feature-score">
-            <div>
-              <i class="icon-sea"></i>
-              <h4>Shore</h4>
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label>
+            <input name="features[]" value="shore" type="checkbox">
+            <div class="feature-score">
+              <div>
+                <i class="icon-sea"></i>
+                <h4>Shore</h4>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
       </div>
-    </div>
-    <div class="row features-row">
-      <div class="col-xs-6">
-        <label>
-          <input type="checkbox">
-          <div class="feature-score">
-            <div>
-              <i class="icon-pool"></i>
-              <h4>Pool</h4>
+      <div class="row features-row">
+        <div class="col-xs-6">
+          <label>
+            <input name="features[]" value="pool" type="checkbox">
+            <div class="feature-score">
+              <div>
+                <i class="icon-pool"></i>
+                <h4>Pool</h4>
+              </div>
             </div>
-          </div>
-        </label>
-      </div>
-      <div class="col-xs-6">
-        <label>
-          <input type="checkbox">
-          <div class="feature-score">
-            <div>
-              <i class="icon-car"></i>
-              <h4>Garage</h4>
+          </label>
+        </div>
+        <div class="col-xs-6">
+          <label>
+            <input name="features[]" value="garage" type="checkbox">
+            <div class="feature-score">
+              <div>
+                <i class="icon-car"></i>
+                <h4>Garage</h4>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
       </div>
-    </div>
-
+      <input type="submit" class="btn btn-primary col-xs-12" value="Search">
+    </form>
   </div>
-  <% form_tag do %>
-  <% end %>
 </nav>
 

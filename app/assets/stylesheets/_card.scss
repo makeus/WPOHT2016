@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 		& + h4 {
 			margin-left: 2 * $spacer;
 
-			@include media-breakpoint-down(md) {
+			@include media-breakpoint-down(sm) {
 				&:last-of-type {
 					display: block;
 					margin-left: 0;

@@ -1,6 +1,16 @@
 class OtApi
 
   def getCards(params)
+    Rails.cache.fetch(params.to_s.downcase, expires_in: 1.hour) {getCardsFromApi(params)}
+  end
+
+  def getCard(id)
+    Rails.cache.fetch(id, expires_in: 1.hour) {getCardFromApi(id)}
+  end
+
+  private
+
+  def getCardsFromApi(params)
     url = "https://asunnot.oikotie.fi/api/cards"
     parsePrice(params)
     parseLocation(params)
@@ -8,13 +18,12 @@ class OtApi
     response.parsed_response.with_indifferent_access
   end
 
-  def getCard(id)
+  def getCardFromApi(id)
     url = "https://asunnot.oikotie.fi/myytavat-asunnot/#{id}?format=json"
     response = HTTParty.get url
     response.parsed_response.with_indifferent_access
   end
 
-  private
   def parsePrice(params)
     if params[:price]
       params['price[max]'] = params[:price][:max] unless !params[:price][:max]

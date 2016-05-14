@@ -20,14 +20,35 @@ describe "CardRetriever" do
 
       mappermock = double("mapper")
       mappermock.stub(:mapCard)
-      mappermock.should_receive(:mapCard).twice
+      mappermock.should_receive(:mapCard).twice { Card.create }
 
       retriever = CardsRetriever.new apimock, mappermock
 
       params = {
         cardType: 100
       }
-      retriever.createCardsFromRemote params
+      cards = retriever.createCardsFromRemote params
+      expect(cards.kind_of?(Array)).to eq(true)
+      expect(cards.length).to eq(2)
+    end
+
+    it "should return empty array if api returns nothing" do
+      apimock = double("api")
+      mappermock = double("mapper")
+
+      apimock.stub(:getCards){}
+      apimock.stub(:getCard){}
+      mappermock.stub(:mapCard)
+
+      params = {
+        cardType: 100
+      }
+
+      retriever = CardsRetriever.new apimock, mappermock
+
+      cards = retriever.createCardsFromRemote params
+      expect(cards.kind_of?(Array)).to eq(true)
+      expect(cards.length).to eq(0)
     end
   end
 

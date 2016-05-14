@@ -2,8 +2,12 @@ require 'webmock/rspec'
 require 'simplecov'
 require 'database_cleaner'
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear!('rails')
 
+SimpleCov.formatters = [
+  Coveralls::SimpleCov::Formatter,
+  SimpleCov::Formatter::HTMLFormatter,
+]
 SimpleCov.start do
   add_filter "/path/"
   add_filter "/spec/"
