@@ -2,34 +2,37 @@
 <html>
 <head>
   <title>WPOHT2016</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div class="container-fluid">
+  <div class="container-fluid">
 
-  <div class="row">
-  <% flash.each do |name, msg| %>
-    <% if msg.is_a?(String) %>
+    <div class="row">
+      <% flash.each do |name, msg| %>
+      <% if msg.is_a?(String) %>
       <div class="alert col-sm-12 alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       </div>
-    <% end %>
-  <% end %>
+      <% end %>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-xl-3">
+        <%= render 'layouts/navigation' %>
+      </div>
+      <div class="col-md-8 col-lg-8 col-xl-9">
+        <%= yield %>
+      </div>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-3 col-lg-3">
-      <%= render 'layouts/navigation' %>
-    </div>
-    <div class="col-sm-9 col-lg-9">
-      <%= yield %>
-    </div>
-  </div>
-
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{@googleAPiKey}", :async => true, :defer => true %>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{@googleAPiKey}", :async => true, :defer => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>

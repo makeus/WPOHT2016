@@ -14,6 +14,7 @@ class Card extends React.Component {
             <h4>{this.props.price}</h4>
             <h4>{this.props.size}m<sup>2</sup></h4>
             <h4>{this.props.location ? this.props.location.address : 'Unknown address'} {this.props.location ? this.props.location.city : null}</h4>
+            <button className="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#nav">&#9776;</button>
           </div>
         </div>
         <div className="row">

@@ -14,12 +14,12 @@ $navbar-inverse-link-hover-color: white;
 $line-height-computed: 1;
 
 .navbar-fixed-side {
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     margin-left: -15px;
     margin-right: -15px;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     $navbar-default-link-hover-bg: darken($navbar-default-bg, 3%);
     $navbar-inverse-link-hover-bg: lighten($navbar-inverse-bg, 5%);
     $navbar-inverse-border: lighten($navbar-inverse-bg, 8%);

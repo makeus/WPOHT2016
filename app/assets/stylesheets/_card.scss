@@ -10,15 +10,24 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 
 	h4 {
 		display: inline-block;
+		margin-bottom: 0;
 		& + h4 {
 			margin-left: 2 * $spacer;
+
+			@include media-breakpoint-down(md) {
+				&:last-of-type {
+					display: block;
+					margin-left: 0;
+					margin-top: 0.5rem;
+				}
+			}
 		}
 	}
 }
 
 .carousel-inner {
 	.carousel-item { 
-		height: 475px;
+		max-height: 475px;
 
 		&.active, &.next, &.prev {
 			display: flex;
