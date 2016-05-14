@@ -70,7 +70,18 @@ class CardMapper
       size: cardData[:ad][:size],
       title: cardData[:ad][:title],
       description: cardData[:adExtra][:description]
-    }
+    };
+
+    description = cardData[:adExtra][:description];
+    if !description.empty? 
+      description = description.downcase
+      adFeatures = adFeatures.merge({
+        garage: description.include?('garage') || description.include?('autotalli'),
+        shore: description.include?('shore') || description.include?('ranta'),
+        pool: description.include?('pool') || description.include?('uima-allas'),
+        sauna: description.include?('sauna')
+      })
+    end
 
     adFeatures.each{|type, value| 
       if value.present?

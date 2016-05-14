@@ -64,10 +64,44 @@ describe "OtApi" do
         {"cards":[{"id":13039686,"description":"Tyylik\u00e4s ja valoisa 4\/5 kerroksen kulmahuoneisto halutussa ja vehre\u00e4ss\u00e4 Vuoreksen uudessa kaupunginosassa","rooms":1,"roomConfiguration":"1h, kt, kph, parveke","price":"122\u00a0800\u00a0\u20ac","nextViewing":null,"images":{"wide":"http:\/\/asunnot.oikotie-static.edgesuite.net\/623*464\/142\/790\/wide\/142790490.jpg","thumb":"http:\/\/asunnot.oikotie-static.edgesuite.net\/215*161\/142\/790\/thumb_search\/142790490.jpg"},"newDevelopment":true,"published":"2016-04-30T12:18:09Z","size":32.5,"sizeLot":4700,"cardType":100,"contractType":1,"onlineOffer":null,"extraVisibility":null,"extraVisibilityString":null,"buildingData":{"address":"Koukkurannankatu 6 B 68","district":"Vuores","city":"Tampere","year":2016,"buildingType":1},"coordinates":{"latitude":61.43212,"longitude":23.80451},"brand":{"image":"http:\/\/asunnot.oikotie-static.edgesuite.net\/300*260\/143\/107\/company_image\/143107554.jpg","name":"Kiinteist\u00f6maailma, Koskikeskuksen Asuntopalvelu Oy LKV, Tampere","id":5013593},"priceChanged":null,"visits":0,"visits_weekly":0}],"found":51321,"start":1}
         END_OF_STRING
 
-        stub_request(:get, /.*cards.*((\?|&)locations=%5B%5B1,9,%22Suomi%22%5D,%5B679888,9,%22Ruotsi%22%5D%5D|(\?|&)cardType=100){2}/).to_return(body: canned_answer, headers: { 'Content-Type' => "text/json" })
+        stub_request(:get, /.*cards.*((\?|&)locations=%5B%5B1,9,%22Suomi%22%5D,%5B679888,9,%22Ruotsi%22%5D,%5B679947,9,%22Viro%22%5D,%5B679760,9,%22Espanja%22%5D,%5B679881,9,%22Ranska%22%5D,%5B679865,9,%22Norja%22%5D%5D|(\?|&)cardType=100){2}/).to_return(body: canned_answer, headers: { 'Content-Type' => "text/json" })
 
         response = OtApi.new.getCards({
-          location: ['FI', 'SE'],
+          location: ['FI', 'SE', 'EE', 'ES', 'FR', 'NO'],
+          cardType: 100
+          });
+
+        expect(response["found"]).to eq(51321)
+        expect(response["cards"][0]["id"]).to eq(13039686)
+      end
+    end
+
+    describe 'featuresPamater' do
+      it 'parses single feature, calls proper url and returns' do
+        canned_answer = <<-END_OF_STRING
+        {"cards":[{"id":13039686,"description":"Tyylik\u00e4s ja valoisa 4\/5 kerroksen kulmahuoneisto halutussa ja vehre\u00e4ss\u00e4 Vuoreksen uudessa kaupunginosassa","rooms":1,"roomConfiguration":"1h, kt, kph, parveke","price":"122\u00a0800\u00a0\u20ac","nextViewing":null,"images":{"wide":"http:\/\/asunnot.oikotie-static.edgesuite.net\/623*464\/142\/790\/wide\/142790490.jpg","thumb":"http:\/\/asunnot.oikotie-static.edgesuite.net\/215*161\/142\/790\/thumb_search\/142790490.jpg"},"newDevelopment":true,"published":"2016-04-30T12:18:09Z","size":32.5,"sizeLot":4700,"cardType":100,"contractType":1,"onlineOffer":null,"extraVisibility":null,"extraVisibilityString":null,"buildingData":{"address":"Koukkurannankatu 6 B 68","district":"Vuores","city":"Tampere","year":2016,"buildingType":1},"coordinates":{"latitude":61.43212,"longitude":23.80451},"brand":{"image":"http:\/\/asunnot.oikotie-static.edgesuite.net\/300*260\/143\/107\/company_image\/143107554.jpg","name":"Kiinteist\u00f6maailma, Koskikeskuksen Asuntopalvelu Oy LKV, Tampere","id":5013593},"priceChanged":null,"visits":0,"visits_weekly":0}],"found":51321,"start":1}
+        END_OF_STRING
+
+        stub_request(:get, /.*cards.*((\?|&)keywords\[\]=Sauna|(\?|&)cardType=100){2}/).to_return(body: canned_answer, headers: { 'Content-Type' => "text/json" })
+
+        response = OtApi.new.getCards({
+          features: ['sauna'],
+          cardType: 100
+          });
+
+        expect(response["found"]).to eq(51321)
+        expect(response["cards"][0]["id"]).to eq(13039686)
+      end
+
+      it 'parses multiple features, calls proper url and returns' do
+        canned_answer = <<-END_OF_STRING
+        {"cards":[{"id":13039686,"description":"Tyylik\u00e4s ja valoisa 4\/5 kerroksen kulmahuoneisto halutussa ja vehre\u00e4ss\u00e4 Vuoreksen uudessa kaupunginosassa","rooms":1,"roomConfiguration":"1h, kt, kph, parveke","price":"122\u00a0800\u00a0\u20ac","nextViewing":null,"images":{"wide":"http:\/\/asunnot.oikotie-static.edgesuite.net\/623*464\/142\/790\/wide\/142790490.jpg","thumb":"http:\/\/asunnot.oikotie-static.edgesuite.net\/215*161\/142\/790\/thumb_search\/142790490.jpg"},"newDevelopment":true,"published":"2016-04-30T12:18:09Z","size":32.5,"sizeLot":4700,"cardType":100,"contractType":1,"onlineOffer":null,"extraVisibility":null,"extraVisibilityString":null,"buildingData":{"address":"Koukkurannankatu 6 B 68","district":"Vuores","city":"Tampere","year":2016,"buildingType":1},"coordinates":{"latitude":61.43212,"longitude":23.80451},"brand":{"image":"http:\/\/asunnot.oikotie-static.edgesuite.net\/300*260\/143\/107\/company_image\/143107554.jpg","name":"Kiinteist\u00f6maailma, Koskikeskuksen Asuntopalvelu Oy LKV, Tampere","id":5013593},"priceChanged":null,"visits":0,"visits_weekly":0}],"found":51321,"start":1}
+        END_OF_STRING
+
+        stub_request(:get, /.*cards.*((\?|&)keywords\[\]=Sauna|(\?|&)keywords\[\]=Ranta|(\?|&)keywords\[\]=Autotalli|(\?|&)keywords\[\]=Uima-allas|(\?|&)cardType=100){5}/).to_return(body: canned_answer, headers: { 'Content-Type' => "text/json" })
+
+        response = OtApi.new.getCards({
+          features: ['sauna', 'garage', 'pool', 'shore'],
           cardType: 100
           });
 

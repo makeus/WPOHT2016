@@ -1,0 +1,56 @@
+.search-card {
+	padding-bottom: $spacer;
+
+	&:hover {
+		text-decoration: none;
+	}
+
+	h1, h2, h3, h4, p, span {
+		color: $blue;
+	}
+
+	.search-card-image {
+		height: 200px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.search-card-info {
+		border: 1px solid $light-gray;
+		padding: 0.2rem;
+		height: 8rem;
+
+		p {
+			margin: 0;
+		}
+
+		.search-card-info-price-size {
+			@include clearfix;
+			h4 {
+				float: left;
+				& + h4 {
+					float: right;
+				}
+			}
+		}
+	}
+
+	.search-card-features {
+		text-align: center;
+		font-size: 3rem;
+
+		i + i {
+			margin-left: 1rem;
+		}
+	}
+
+	.search-card-readmore {
+		background-color: $blue;
+		color: white;
+		text-align: center;
+		margin: 0;
+		padding: 0.2rem;
+		font-size: 1.2rem;
+	}
+}

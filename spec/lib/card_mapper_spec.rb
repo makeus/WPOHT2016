@@ -167,6 +167,17 @@ describe "CardMapper" do
         expect(feature.value).to eq("12000")
       end
 
+      it "should create some features from description" do
+        CardMapper.new.mapCard card_id: 13057713, ad: {}, adExtra: {description: "sauna ja kiva uima-allas"}
+        expect(Feature.count).to eq(3)
+        sauna = Feature.find_by feature: 'sauna'
+        expect(sauna.value).to eq('t')
+        garage = Feature.find_by feature: 'garage'
+        if !garage.nil?
+          expect(garage.value).to eq('f')
+        end
+      end
+
     end
   end
 end

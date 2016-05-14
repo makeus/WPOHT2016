@@ -12,7 +12,7 @@ describe "CardRetriever" do
   describe "#createCardsFromRemote" do
     it "expepct call api with given params and with each result call mapper" do
       apimock = double("api")
-      apimock.stub(:getCards){ {cards: [{id: 1}, {id: 2}] }}
+      apimock.stub(:getCards){ {cards: [{id: 1}, {id: 2}], found: 23}}
       apimock.stub(:getCard){ {card: 1} }
 
       apimock.should_receive(:getCards).once
@@ -27,12 +27,13 @@ describe "CardRetriever" do
       params = {
         cardType: 100
       }
-      cards = retriever.createCardsFromRemote params
-      expect(cards.kind_of?(Array)).to eq(true)
-      expect(cards.length).to eq(2)
+      result = retriever.createCardsFromRemote params
+      expect(result.kind_of?(Object)).to eq(true)
+      expect(result[:cards].length).to eq(2)
+      expect(result[:total]).to eq(23)
     end
 
-    it "should return empty array if api returns nothing" do
+    it "should return empty array of cards with zero total if api returns nothing" do
       apimock = double("api")
       mappermock = double("mapper")
 
@@ -46,9 +47,10 @@ describe "CardRetriever" do
 
       retriever = CardsRetriever.new apimock, mappermock
 
-      cards = retriever.createCardsFromRemote params
-      expect(cards.kind_of?(Array)).to eq(true)
-      expect(cards.length).to eq(0)
+      result = retriever.createCardsFromRemote params
+      expect(result.kind_of?(Object)).to eq(true)
+      expect(result[:cards].length).to eq(0)
+      expect(result[:total]).to eq(0)
     end
   end
 

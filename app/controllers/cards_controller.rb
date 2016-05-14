@@ -1,15 +1,30 @@
 class CardsController < ApplicationController
   def index
-      retriever = CardsRetriever.new OtApi.new, CardMapper.new;
-      @cards = retriever.createCardsFromRemote({
-        :cardType => 100,
-        :limit => 24,
-        :offset => 0,
-        :price => {
-          :min => 1000000
-        }
-      }.merge(card_params))
+    retriever = CardsRetriever.new OtApi.new, CardMapper.new;
+    props = retriever.createCardsFromRemote({
+      "cardType" => 100,
+      "limit" => 12,
+      "offset" => 0,
+      "price" => {
+        "min" => 1000000
+      }
+    }.deep_merge(card_params).with_indifferent_access);
 
+    props[:cards] = props[:cards].map{|card| {
+      :id => card.id,
+      :price => card.get_feature_value("price"),
+      :size => card.get_feature_value("size"),
+      :address => card.locations.first.address,
+      :image => card.media.first.url,
+      :features => {
+        :pool => card.get_feature_value("pool"),
+        :car => card.get_feature_value("garage"),
+        :sea => card.get_feature_value("shore"),
+        :sauna => card.get_feature_value("sauna"),
+      }
+      }}
+
+    render component: 'SearchResult', props: props, prerender: true
   end
 
   def show
@@ -26,8 +41,6 @@ class CardsController < ApplicationController
     props[:authenticityToken] = form_authenticity_token
     render component: 'Card', props: props, prerender: true
   end
-
-  private
 
   def helper
     @helper ||= Class.new do

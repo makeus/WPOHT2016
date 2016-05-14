@@ -12,8 +12,9 @@ class OtApi
 
   def getCardsFromApi(params)
     url = "https://asunnot.oikotie.fi/api/cards"
-    parsePrice(params)
-    parseLocation(params)
+    params = parsePrice(params)
+    params = parseLocation(params)
+    params = parseFeatures(params)
     response = HTTParty.get "#{url}?#{URI::encode_www_form(params)}"
     response.parsed_response.with_indifferent_access
   end
@@ -33,6 +34,26 @@ class OtApi
     params
   end
 
+  def parseFeatures(params)
+   if params[:features]
+      features = params[:features].inject([]) {|features, feature|
+        case feature
+        when 'shore'
+          features.push('Ranta')
+        when 'garage'
+          features.push('Autotalli')
+        when 'sauna'
+          features.push('Sauna')
+        when 'pool'
+          features.push('Uima-allas')
+        end
+      }
+      params['keywords[]'] = features
+    end
+    params.delete(:features)
+    params
+  end
+
   def parseLocation(params)
     if params[:location]
       locations = params[:location].inject([]) {|locations, location|
@@ -41,6 +62,14 @@ class OtApi
           locations.push('[1,9,"Suomi"]')
         when 'SE'
           locations.push('[679888,9,"Ruotsi"]')
+        when 'NO'
+          locations.push('[679865,9,"Norja"]')
+        when 'EE'
+          locations.push('[679947,9,"Viro"]')
+        when 'ES'
+          locations.push('[679760,9,"Espanja"]')
+        when 'FR'
+          locations.push('[679881,9,"Ranska"]')
         end
       }
       params[:locations] = '[' + locations.join(',') + ']'
