@@ -6,6 +6,7 @@ gem 'sass-rails', '~> 5.0'
 gem "autoprefixer-rails"
 gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
+gem 'nprogress-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'httparty'
 gem 'react-rails'

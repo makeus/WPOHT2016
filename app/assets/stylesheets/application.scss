@@ -6,12 +6,9 @@
 @import "icons";
 @import "search-cards";
 @import "search-card";
+@import 'nprogress';
+@import 'nprogress-bootstrap';
 
 body {
 	font-family: "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif;
-}
-
-.turbolinks-progress-bar {
-	height: 5px;
-	background-color: $orange;
 }

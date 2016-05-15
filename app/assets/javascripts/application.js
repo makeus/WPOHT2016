@@ -14,7 +14,16 @@
 //= require jquery
 //= require tether
 //= require bootstrap-sprockets
+//= require nprogress
+//= require nprogress-turbolinks
 //= require react
 //= require react_ujs
 //= require components
 //= require_tree .
+
+
+NProgress.configure({
+  showSpinner: true,
+  ease: 'ease',
+  speed: 500
+});
