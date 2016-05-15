@@ -12,3 +12,29 @@ Demo can be viewed in [Heroku](https://wpoht2016.herokuapp.com/)
 ## Documentation
 
 Documantion can be viewed in the github wiki page [here](https://github.com/makeus/WPOHT2016/wiki)
+
+## Setup
+
+The software requires dependencies to be installed first. You can do this by running
+
+```
+bundle install
+```
+
+The application requires a key to Google Maps API which can be retrieved [here](https://developers.google.com/maps/documentation/javascript/get-api-key). This key needs to added to the ENV as GOOGLE_API_KEY. This can be done with the command 
+
+```
+export GOOGLE_API_KEY = [key]
+```
+
+The rails production server can be started with
+
+```
+rails server -e production
+```
+
+Tests can be run with
+
+```
+bundle exec rspec
+```
