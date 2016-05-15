@@ -34,10 +34,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
 
-
 group :test do
   gem 'capybara'
   gem 'launchy'
+  gem 'selenium-webdriver'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'coveralls', require: false

@@ -7,9 +7,9 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact.card, notice: 'Contact was successfully created.' }
+        format.html { redirect_to @contact.card, notice: 'Contact message was successfully sent' }
       else
-        format.html { redirect_to root_path, notice: @contact.errors }
+        format.html { redirect_to @contact.card, flash: {:error => @contact.errors[:base][0] }}
       end
     end
   end

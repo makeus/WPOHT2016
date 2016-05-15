@@ -4,6 +4,7 @@ describe "OtApi" do
   before :each do
     Rails.cache.clear
   end
+
   describe "#getCards" do
     it "parses simple parameters, calls proper url and returns" do
 

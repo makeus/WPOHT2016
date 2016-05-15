@@ -34,7 +34,7 @@ RSpec.describe ContactsController, type: :controller do
     phone: '',
     email: '',
     message: '',
-    card_id: 123123
+    card_id: card.id
   }}
 
   describe "POST #create" do
@@ -60,7 +60,7 @@ RSpec.describe ContactsController, type: :controller do
 
       it "redirects to the given card" do
         post :create, {:contact => invalid_attributes}
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(card)
       end
     end
   end
