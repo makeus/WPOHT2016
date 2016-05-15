@@ -69,23 +69,16 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 		border-radius: 0 90px 90px 0;
 	}
 
-	.icon-prev {
-		text-align: left;
-	}
-
-	.icon-next {
-		text-align: right;
-	}
-
 	.icon-prev, .icon-next {
+		text-align: right;
 		position: static;
-		font-size: 80px;
+		font-size: 32px;
 		margin: 0;
 		width: 50px;
 		height: 50px;
 
 		&:before {
-			line-height: 0.3;
+			line-height: 1.5;
 			display: block;
 			height: 100%;
 		}

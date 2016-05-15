@@ -26,10 +26,12 @@ class Card extends React.Component {
         <div className="row">
           <div className="col-sm-12 col-md-7">
             <div className="row">
+            {this.props.coordinates ?
               <div className="map col-sm-12">
                 <h2>Map</h2>
                 <Map latitude={this.props.coordinates ? this.props.coordinates.latitude : null} longitude={this.props.coordinates ? this.props.coordinates.longitude : null} />
               </div>
+            : null}
               <div className="features col-sm-12">
                 <h2>{this.props.title}</h2>
                 <p>{this.props.description}</p>

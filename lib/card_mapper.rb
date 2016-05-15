@@ -66,7 +66,7 @@ class CardMapper
 
   def handleFeatures(card, cardData)
     adFeatures = {
-      price: cardData[:ad][:price],
+      price: helper.number_to_currency(cardData[:ad][:price], unit: '€', delimiter: ' ', precision: 0, format: "%n %u"),
       size: cardData[:ad][:size],
       title: cardData[:ad][:title],
       description: cardData[:adExtra][:description]
@@ -91,4 +91,11 @@ class CardMapper
       end
     }
   end
+
+  def helper
+    @helper ||= Class.new do
+      include ActionView::Helpers::NumberHelper
+    end.new
+  end
+
 end

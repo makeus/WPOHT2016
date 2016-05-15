@@ -2,7 +2,7 @@ class SearchForm extends React.Component {
 
   componentDidMount () {
     $(this.refs.form).on("submit", function(e) {
-      Turbolinks.visit(this.action+(this.action.indexOf('?') == -1 ? '?' : '&')+$(this).serialize());
+      Turbolinks.visit(this.action+(this.action.indexOf('?') == -1 ? '?' : '&')+$(this).find(":input").filter((index, element) => {return $(element).val() != ""; }).serialize());
       return false;
     });
   }
@@ -19,6 +19,8 @@ class SearchForm extends React.Component {
         <div className="navigation">
           <form ref="form" method="get" action="/cards">
             <h3>Country</h3>
+            <input type="hidden" name="limit" defaultValue="12" />
+            <input type="hidden" name="offset" defaultValue="0" />
             <div className="row">
               <div className="col-xs-6">
                 <label className="c-input c-checkbox">

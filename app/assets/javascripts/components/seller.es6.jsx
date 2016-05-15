@@ -3,7 +3,7 @@ class Seller extends React.Component {
     return (
       <div>
         <div className="row seller-images">
-          <div className="col-xs-6 seller-image" style={{backgroundImage: 'url(' + this.props.image + ')'}}>
+          <div className={this.props.image ? "col-xs-6 seller-image" : "hidden"} style={{backgroundImage: 'url(' + this.props.image + ')'}}>
           </div>
           <div className="col-xs-6">
             <img src={this.props.logo} />

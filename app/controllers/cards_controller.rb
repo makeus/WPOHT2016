@@ -22,7 +22,7 @@ class CardsController < ApplicationController
         :sea => card.get_feature_value("shore"),
         :sauna => card.get_feature_value("sauna"),
       }
-      }}
+    }}
     session[:referrer]=url_for(params)
     render component: 'SearchResult', props: props
   end
@@ -35,18 +35,12 @@ class CardsController < ApplicationController
     props[:seller] = @card.seller
     props[:title] = @card.get_feature_value "title"
     props[:description] = @card.get_feature_value "description"
-    props[:price] = helper.number_to_currency(@card.get_feature_value("price"), unit: '€', delimiter: ' ', precision: 0, format: "%n %u") 
+    props[:price] = @card.get_feature_value "price"
     props[:size] = @card.get_feature_value "size"
     props[:location] = @card.locations.first
     props[:authenticityToken] = form_authenticity_token
     props[:referrer] = session[:referrer]
     render component: 'Card', props: props
-  end
-
-  def helper
-    @helper ||= Class.new do
-      include ActionView::Helpers::NumberHelper
-    end.new
   end
 
   def card_params
