@@ -1,7 +1,7 @@
 class SearchCard extends React.Component {
   render () {
     return (
-      <a href={'/cards/' + this.props.card.id} className="search-card col-lg-4">
+      <a href={'/cards/' + this.props.card.id} className="search-card col-lg-4 col-md-6 col-sm-6">
         <div className="search-card-image" style={{backgroundImage: 'url(' + this.props.card.image + ')'}} />
         <div className="search-card-info">
           <div className="search-card-info-price-size">

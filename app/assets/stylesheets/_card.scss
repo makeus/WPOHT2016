@@ -23,6 +23,16 @@ h1, h2, h3, h4, h5, p, label, input, textarea {
 			}
 		}
 	}
+
+	a {
+		float: right;
+		color: white;
+		font-size: 1.5rem;
+		line-height: 1;
+		&:hover {
+			text-decoration: none;
+		}
+	}
 }
 
 .carousel-inner {

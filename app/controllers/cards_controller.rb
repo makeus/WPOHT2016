@@ -23,8 +23,8 @@ class CardsController < ApplicationController
         :sauna => card.get_feature_value("sauna"),
       }
       }}
-
-    render component: 'SearchResult', props: props, prerender: true
+    session[:referrer]=url_for(params)
+    render component: 'SearchResult', props: props
   end
 
   def show
@@ -39,7 +39,8 @@ class CardsController < ApplicationController
     props[:size] = @card.get_feature_value "size"
     props[:location] = @card.locations.first
     props[:authenticityToken] = form_authenticity_token
-    render component: 'Card', props: props, prerender: true
+    props[:referrer] = session[:referrer]
+    render component: 'Card', props: props
   end
 
   def helper

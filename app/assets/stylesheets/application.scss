@@ -1,13 +1,17 @@
 @import "settings";
 @import "bootstrap";
-
-body {
-	font-family: "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif;
-}
-
 @import "side-navbar";
 @import "card";
 @import "nav";
 @import "icons";
 @import "search-cards";
 @import "search-card";
+
+body {
+	font-family: "Helvetica Neue", Helvetica, "Liberation Sans", Arial, sans-serif;
+}
+
+.turbolinks-progress-bar {
+	height: 5px;
+	background-color: $orange;
+}

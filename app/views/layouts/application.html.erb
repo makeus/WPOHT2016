@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{@googleAPiKey}", :async => true, :defer => true %>
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 
     <div class="row">
       <div class="col-md-4 col-lg-4 col-xl-3">
-        <%= render 'layouts/navigation' %>
+        <%= react_component('SearchForm', {}, {prerender: true, class: "navbar navbar-default navbar-fixed-side navbar-inverse collapse navbar-toggleable-sm", id: "nav"}) %>
       </div>
       <div class="col-md-8 col-lg-8 col-xl-9">
         <%= yield %>
@@ -32,7 +33,6 @@
     </div>
   </div>
 
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{@googleAPiKey}", :async => true, :defer => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application'%>
 </body>
 </html>

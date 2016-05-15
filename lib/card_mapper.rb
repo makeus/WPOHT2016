@@ -1,7 +1,7 @@
 class CardMapper
 
   def mapCard(cardData)
-    card = Card.find_or_initialize_by id: cardData[:card_id]
+    card = Card.eager_load(:features).find_or_initialize_by id: cardData[:card_id]
     if card.modified_recently
       return card
     end

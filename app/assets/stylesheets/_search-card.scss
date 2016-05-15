@@ -36,6 +36,12 @@
 		}
 	}
 
+	&:hover {
+		.search-card-info {
+			background-color: #f7f7f7;
+		}
+	}
+
 	.search-card-features {
 		text-align: center;
 		font-size: 3rem;
@@ -53,4 +59,6 @@
 		padding: 0.2rem;
 		font-size: 1.2rem;
 	}
+
+
 }
