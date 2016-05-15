@@ -4,8 +4,11 @@ RSpec.describe CardsController, type: :controller do
   let!(:card) { FactoryGirl.create :card }
   
   before :all do
-      Rails.cache.clear
       WebMock.disable_net_connect!(:allow => %r{127.0.0.1:7055/hub/session})
+  end
+
+  after :all do
+    Rails.cache.clear 
   end
 
   describe "#index" do
