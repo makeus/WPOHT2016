@@ -73,7 +73,7 @@ class CardMapper
     };
 
     description = cardData[:adExtra][:description];
-    if !description.empty? 
+    if description && !description.empty? 
       description = description.downcase
       adFeatures = adFeatures.merge({
         garage: description.include?('garage') || description.include?('autotalli'),
